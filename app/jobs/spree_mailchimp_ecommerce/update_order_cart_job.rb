@@ -10,7 +10,11 @@ module SpreeMailchimpEcommerce
       begin
         gibbon_store.carts(order.number).update(body: mailchimp_cart)
       rescue Gibbon::MailChimpError => e
-        gibbon_store.carts.create(body: mailchimp_cart) if e.status_code == 404
+        if e.status_code == 404
+          gibbon_store.carts.create(body: mailchimp_cart)
+        else
+          raise
+        end
       end
     end
   end
