@@ -2,9 +2,8 @@ module SpreeMailchimpEcommerce
   class UpdateUserJob < ApplicationJob
     def perform(user_id)
       user = Spree::User.find_by(id: user_id)
-      return unless user
 
-      mailchimp_user = user.mailchimp_user
+      mailchimp_user = user&.mailchimp_user
       return unless mailchimp_user
 
       begin
