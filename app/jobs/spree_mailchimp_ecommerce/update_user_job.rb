@@ -10,7 +10,7 @@ module SpreeMailchimpEcommerce
         gibbon_store.customers(mailchimp_user["id"]).update(body: mailchimp_user)
       rescue Gibbon::MailChimpError => e
         if e.status_code == 404
-          gibbon_store.customers.create(body: mailchimp_user)
+          ::SpreeMailchimpEcommerce::CreateUserJob.perform_later(user_id)
         else
           raise
         end

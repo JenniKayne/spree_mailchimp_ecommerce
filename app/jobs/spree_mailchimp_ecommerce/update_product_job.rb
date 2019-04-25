@@ -10,7 +10,7 @@ module SpreeMailchimpEcommerce
         gibbon_store.products(mailchimp_product["id"]).update(body: mailchimp_product)
       rescue Gibbon::MailChimpError => e
         if e.status_code == 404
-          gibbon_store.products.create(body: mailchimp_product)
+          ::SpreeMailchimpEcommerce::CreateProductJob.perform_later(product_id)
         else
           raise
         end
