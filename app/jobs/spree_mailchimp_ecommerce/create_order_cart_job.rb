@@ -8,6 +8,8 @@ module SpreeMailchimpEcommerce
       return unless mailchimp_cart
 
       gibbon_store.carts.create(body: mailchimp_cart)
+    rescue Gibbon::MailChimpError => e
+      raise unless e.status_code == 400
     end
   end
 end
