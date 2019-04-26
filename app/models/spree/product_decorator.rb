@@ -13,11 +13,11 @@ module Spree
       private
 
       def create_mailchimp_product
-        ::SpreeMailchimpEcommerce::CreateProductJob.perform_later(id) if variantes.positive?
+        ::SpreeMailchimpEcommerce::CreateProductJob.perform_later(id) if variants.positive?
       end
 
       def update_mailchimp_product
-        ::SpreeMailchimpEcommerce::UpdateProductJob.perform_later(id) if variantes.positive?
+        ::SpreeMailchimpEcommerce::UpdateProductJob.perform_later(id) if variants.positive?
       end
     end
   end
